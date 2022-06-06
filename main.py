@@ -28,9 +28,9 @@ def main(DIR, OUTDIR, LOGO, FFMPEG):
 
 if __name__ == "__main__":
     print("Help : main.exe input_video_folder_path  output_video_folder_path  logo_file_path ffmpeg_path")
-    DIR = argv[1] if len(argv) > 2 else "./video/mxfs"
-    OUTDIR = argv[2] if len(argv) > 3 else "./video"
-    LOGO = argv[3] if len(argv) > 4 else "LOGO_KvTV.png"
+    DIR = argv[1] if len(argv) > 2 else "./video_input"
+    OUTDIR = argv[2] if len(argv) > 3 else "./video_output"
+    LOGO = argv[3] if len(argv) > 4 else "./logo/LOGO_KvTV.png"
     FFMPEG = argv[4] if len(argv) > 5 else "ffmpeg"
 
     if platform.startswith('win'):
