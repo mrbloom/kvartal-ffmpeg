@@ -15,7 +15,7 @@ def check_ffmpeg_win(FFMPEG):
 
 
 def main(DIR, OUTDIR, LOGO, FFMPEG):
-    mxfs = glob(f"{DIR}/*.*")
+    mxfs = glob(f"{DIR}/*.mxf") + glob(f"{DIR}/*.mov") + glob(f"{DIR}/*.avi")
     for mxf in mxfs:
         video_name = Path(mxf).stem.split('.')[0]
         null_device = "/dev/null" if not platform.startswith('win') else "NUL"
