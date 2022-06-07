@@ -18,12 +18,18 @@ def main(DIR, OUTDIR, LOGO, FFMPEG):
     mxfs = glob(f"{DIR}/*.mxf") + glob(f"{DIR}/*.mov") + glob(f"{DIR}/*.avi")
     for mxf in mxfs:
         video_name = Path(mxf).stem.split('.')[0]
-        null_device = "/dev/null" if not platform.startswith('win') else "NUL"
-        cmd_pass1 = f'{FFMPEG} -y -i {mxf} -c:v libx264 -b:v 7500k -pass 1 -an -f null {null_device}'
-        cmd_pass2 = f'{FFMPEG} -y -i {mxf}  -i  {LOGO} -map 0:a  -filter_complex "overlay=0:0" -c:v libx264  -b:v 7500k -pass 2  -c:a aac -ar 48000 -b:a 128k  -f mpegts {OUTDIR}/{video_name}.ts'
+        cmd = f'{FFMPEG} -y -i {mxf}  -i  {LOGO}  -map 0:a   -filter_complex "overlay=0:0"  -qscale:v 1  -c:a aac -ar 48000 -b:a 256k  -c:v  mpeg2video -f mpegts {OUTDIR}/{video_name}.ts'
+        system(cmd)
 
-        system(cmd_pass1)
-        system(cmd_pass2)
+        #cmd = f'{FFMPEG} -y -i {mxf}  -i  {LOGO} -map 0:a  -filter_complex "overlay=0:0" -c:v libx264  -b:v 7500k  -c:a aac -ar 48000 -b:a 128k  -f mpegts {OUTDIR}/{video_name}.ts'
+        #system(cmd)
+
+        # null_device = "/dev/null" if not platform.startswith('win') else "NUL"
+        # cmd_pass1 = f'{FFMPEG} -y -i {mxf} -c:v libx264 -b:v 6500k -pass 1 -an -f null {null_device}'
+        # cmd_pass2 = f'{FFMPEG} -y -i {mxf}  -i  {LOGO} -map 0:a  -filter_complex "overlay=0:0" -c:v libx264  -b:v 6500k -pass 2  -c:a aac -ar 48000 -b:a 128k  -f mpegts {OUTDIR}/{video_name}.ts'
+        #
+        # system(cmd_pass1)
+        # system(cmd_pass2)
 
 
 if __name__ == "__main__":
